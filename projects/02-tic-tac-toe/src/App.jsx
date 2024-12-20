@@ -7,19 +7,25 @@ import {WinnerModal} from './components/Winnermodal.jsx'
 
 
 function App() {
-  const [BOARD, setBOARD] = useState(Array(9).fill(null))
+  const [BOARD, setBOARD] = useState(() => {
+    const saveBoard = window.localStorage.getItem('board');
+    return saveBoard ? JSON.parse(saveBoard) : Array(9).fill(null);
+  })
 
-  const [turn, setTurn] = useState(TURNS.X)
-  const [winner, setWinner] = useState(null)
+  const [turn, setTurn] = useState(() => {
+    const saveTurn = window.localStorage.getItem('turn');
+    return saveTurn ? JSON.parse(saveTurn) : TURNS.X;
+  });
+  const [winner, setWinner] = useState(null);
 
   const resetGame = () => {
-    setBOARD(Array(9).fill(null))
-    setTurn(TURNS.X)
-    setWinner(null)
+    setBOARD(Array(9).fill(null));
+    setTurn(TURNS.X);
+    setWinner(null);
   }
 
   const checkEndGame = (newBoard) => {
-    return newBoard.every((square) => square !== null)
+    return newBoard.every((square) => square !== null);
   }
 
   const updateBoard = (index) => {
@@ -28,9 +34,15 @@ function App() {
     newBoard[index] = turn;
     setBOARD(newBoard)
 
+    // Cambiar de turno
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
     setTurn(newTurn);
 
+    //Guardar en local storage
+    window.localStorage.setItem('board', JSON.stringify(newBoard))
+    window.localStorage.setItem('turn', JSON.stringify(newTurn))
+
+    // Verificar si hay un ganador
     const newWinner = checkWinnerFrom(newBoard)
     if (newWinner) {
       setWinner(newWinner);
