@@ -1,0 +1,65 @@
+.tw-follow-card {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: .8rem;
+    justify-content: space-between;
+    max-width: 350px;
+    min-width: 350px;
+}
+
+.tw-follow-card-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tw-user-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.tw-account {
+    opacity: .6;
+}
+
+.tw-img-user {
+    height: 48px;
+    width: 48px;
+    border-radius: 1000px;
+}
+
+.tw-follow {
+    cursor: pointer;
+    margin-left: 16px;
+    border: 1px solid #000;
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-weight: bold;
+    transition: .3 ease background-color;
+}
+
+.unfollow{
+    display: none;
+}
+
+.tw-follow.is-following{
+    background: transparent;
+    border: 1px solid rgba(214, 209, 209, 0.74);
+    color: #fff;
+    width: 140px;
+    transition: .2s ease all;
+}
+
+.tw-follow.is-following:hover{
+    background: rgba(246, 15, 15, 0.308);
+    color: red;
+    border: 1px solid red;
+
+    .unfollow{
+        display: block;
+    }
+    .tw-button-text{
+        display: none;
+    }
+}
